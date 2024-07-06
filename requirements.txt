@@ -1,0 +1,5 @@
+cherrypy
+requests
+matplotlib
+fpdf
+apscheduler
