@@ -18,11 +18,6 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-# Create writable directories
-RUN mkdir -p /app/matplotlib && \
-    chmod -R 777 /app/matplotlib && \
-    chmod -R 777 /
-
 # Delete the contents of /app directory
 RUN rm -rf /app/*
 
