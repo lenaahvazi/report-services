@@ -1,9 +1,11 @@
-messageBrokerIP = "142.93.110.148"
+CONFIG_FILE_PATH = 'config.py'
+serviceName = 'reportGenerator'
+messageBrokerIP = '142.93.110.148'
 messageBrokerPort = 1883
 registerInterval = 3600
-ip = "142.93.110.148"
+ip = '142.93.110.148'
 port = 7020
-productCatalogURL = "http://142.93.110.148:7000"
-registrationEndpoint = "/services/register"
-statisticsCalculatorIP = "http://142.93.110.148:7010/api/v1/get_stats"
-status = "disable"
+productCatalogURL = 'http://142.93.110.148:7000'
+registrationEndpoint = '/services/register'
+statisticsCalculatorIP = 'http://142.93.110.148:7010/api/v1/get_stats'
+status = 'enable'

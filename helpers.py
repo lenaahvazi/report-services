@@ -7,6 +7,24 @@ import json
 import config
 
 
+def update_config_file(updates):
+    lines = []
+    with open(config.CONFIG_FILE_PATH, 'r') as file:
+        lines = file.readlines()
+
+    with open(config.CONFIG_FILE_PATH, 'w') as file:
+        for line in lines:
+            for key, value in updates.items():
+                if line.startswith(f"{key} ="):
+                    if isinstance(value, str):
+                        file.write(f"{key} = '{value}'\n")
+                    else:
+                        file.write(f"{key} = {value}\n")
+                    break
+            else:
+                file.write(line)
+
+
 def register():
     try:
         service_name = "reportGenerator"
@@ -23,15 +41,19 @@ def register():
         if status_code == 200:
             response_data = response.json()
 
-            config.messageBrokerIP = response_data.get('messageBrokerIP')
-            config.messageBrokerPort = response_data.get('messageBrokerPort')
-            config.registerInterval = response_data.get('registerInterval')
-            config.ip = response_data.get('ip')
-            config.port = response_data.get('port')
-            config.productCatalogURL = response_data.get('productCatalogURL')
-            config.registrationEndpoint = response_data.get('registrationEndpoint')
-            config.statisticsCalculatorIP = response_data.get('statisticsCalculatorIP')
-            config.status = response_data.get('status')
+            updates = {
+                'messageBrokerIP': response_data.get('messageBrokerIP', config.messageBrokerIP),
+                'messageBrokerPort': response_data.get('messageBrokerPort', config.messageBrokerPort),
+                'registerInterval': response_data.get('registerInterval', config.registerInterval),
+                'ip': response_data.get('ip', config.ip),
+                'port': response_data.get('port', config.port),
+                'productCatalogURL': response_data.get('productCatalogURL', config.productCatalogURL),
+                'registrationEndpoint': response_data.get('registrationEndpoint', config.registrationEndpoint),
+                'statisticsCalculatorIP': response_data.get('statisticsCalculatorIP', config.statisticsCalculatorIP),
+                'status': response_data.get('status', config.status)
+            }
+
+            update_config_file(updates)
 
             print("Configuration saved.")
             return "Configuration saved.", 200
