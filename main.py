@@ -11,7 +11,7 @@ class SensorReportService(object):
         self.last_call_time = 0
 
     @cherrypy.expose
-    def download_report(self):
+    def download_report(self, place_id):
         current_time = time.time()
         time_since_last_call = current_time - self.last_call_time
 
@@ -22,7 +22,7 @@ class SensorReportService(object):
         self.last_call_time = current_time
 
         # Generate the PDF report
-        pdf_filename = prepareration_process(75599)
+        pdf_filename = prepareration_process(place_id)
 
         if os.path.exists(pdf_filename):
             return cherrypy.lib.static.serve_file(pdf_filename, 'application/x-download', 'attachment',
