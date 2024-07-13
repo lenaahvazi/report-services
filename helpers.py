@@ -27,12 +27,10 @@ def update_config_file(updates):
 
 def register():
     try:
-        service_name = "reportGenerator"
-
         url = config.productCatalogURL + config.registrationEndpoint
 
         params = {
-            "service_name": service_name
+            "service_name": config.serviceName
         }
 
         response = requests.get(url=url, params=params)
